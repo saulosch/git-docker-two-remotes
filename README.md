@@ -1,7 +1,9 @@
 # git-docker-two-remotes
 Explanation of how to setup a scenario for a docker project with two git repositories.
 
-# Structure
+> *Note:* this explanation consider that you already know the basics of git commands.
+
+# Project structure
 
 ```
 .
@@ -29,14 +31,27 @@ The solution is to store the whole thing in one repository and create another ju
 
 To do this, I'll use **git subtree**
 
+---
+
 # How to
 
-First, I created the respository to store everything (docker + application source), and cloned it:
+## Complete new repositories
+
+First, create the respository to store everything (docker + application source), and *clone* it:
+
 ```bash
 git clone https://github.com/saulosch/complete-repo-with-docker-and-project-files.git
 ```
-Then 
+After that, you can create all the files in the folders (both, docker and application files), commit it and push to remote repository, normally.
 
-cd teste-repo-1
-git subtree add --prefix=code https://github.com/saulosch/teste-repo-2.git master
-git subtree push --prefix=code https://github.com/saulosch/teste-repo-2.git master
+```bash
+git push origin master
+```
+
+Then, create the respository that will contain only the application source and *push* the content of the proper folder to it with the **subtree** command:
+
+```bash
+git subtree push --prefix=docker/container_1/volume_1/code https://github.com/saulosch/partial-repo-with-project-files-only.git master
+```
+
+Done!
